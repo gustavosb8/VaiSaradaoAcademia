@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Academia</string>
+    <string name="VaiSaradão">VaiSaradão</string>
+
+    <string-array name="professores">
+        <item>Gracyanne Barbosa</item>
+        <item>Bambam</item>
+        <item>Rocky</item>
+    </string-array>
+</resources>
