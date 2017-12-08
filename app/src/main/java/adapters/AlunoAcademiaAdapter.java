@@ -1,4 +1,4 @@
-package util;
+package adapters;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -16,7 +16,7 @@ import model.AlunoAcademia;
  * AULA 2
  */
 
-public class Adaptador extends RecyclerView.Adapter {
+public class AlunoAcademiaAdapter extends RecyclerView.Adapter {
 
     ArrayList<AlunoAcademia> alunos;
 
@@ -30,31 +30,20 @@ public class Adaptador extends RecyclerView.Adapter {
     }
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public Adaptador(ArrayList<AlunoAcademia> alunos) {
+    public AlunoAcademiaAdapter(ArrayList<AlunoAcademia> alunos) {
         this.alunos = alunos;
     }
 
-    // Create new views (invoked by the layout manager)
-    @Override
-    public Adaptador onCreateViewHolder(ViewGroup parent,
-                                                   int viewType) {
-        // create a new view
-        View v = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.activity_tela_dados_cadastrados, parent, false);
-        // set the view's size, margins, paddings and layout parameters
 
-        ViewHolder vh = new ViewHolder((TextView) v);
-        return vh;
+    @Override
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        return null;
     }
 
-    // Replace the contents of a view (invoked by the layout manager)
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
 
     }
-
-
-
 
     // Return the size of your dataset (invoked by the layout manager)
     @Override

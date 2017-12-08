@@ -10,7 +10,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 import model.AlunoAcademia;
-import util.Adaptador;
+import adapters.AlunoAcademiaAdapter;
 
 public class TelaDadosCadastrados extends AppCompatActivity {
 
@@ -51,7 +51,7 @@ public class TelaDadosCadastrados extends AppCompatActivity {
         mLayoutManager = new LinearLayoutManager(this);
         rView.setLayoutManager(mLayoutManager);
 
-        mAdapter = new Adaptador(getAlunoDaIntent());
+        mAdapter = new AlunoAcademiaAdapter(getAlunoDaIntent());
         rView.setAdapter(mAdapter);
 
     }

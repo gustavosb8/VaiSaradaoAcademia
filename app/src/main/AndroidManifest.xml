@@ -9,7 +9,8 @@
         android:roundIcon="@drawable/muscle"
         android:supportsRtl="true"
         android:theme="@style/VaiSaradãoTema">
-        <activity android:name=".TelaCadastro"
+        <activity
+            android:name=".TelaCadastro"
             android:theme="@style/VaiSaradãoTema">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -17,7 +18,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".TelaDadosCadastrados"></activity>
+        <activity android:name=".TelaDadosCadastrados" />
+        <activity android:name=".AlunoAcademiaItem"></activity>
     </application>
 
 </manifest>
