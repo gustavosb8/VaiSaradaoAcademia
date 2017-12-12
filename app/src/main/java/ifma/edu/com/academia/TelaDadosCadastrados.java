@@ -35,7 +35,6 @@ public class TelaDadosCadastrados extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tela_dados_cadastrados);
 
-        /*
         txtNomeAluno = (TextView) findViewById(R.id.txtMostraNome);
         txtEnderecoAluno = (TextView) findViewById(R.id.txtMostraEndereco);
         txtSexoAluno = (TextView) findViewById(R.id.txtMostraSexo);
@@ -45,21 +44,14 @@ public class TelaDadosCadastrados extends AppCompatActivity {
         txtModalidadeAluno = (TextView) findViewById(R.id.txtMostraModalidade);
         txtAdmissaoAluno = (TextView) findViewById(R.id.txtMostraAdmissao);
         txtProfessorAluno = (TextView) findViewById(R.id.txtMostraProfessor);
-        */
-
-        rView = (RecyclerView) findViewById(R.id.recyclerView);
-        mLayoutManager = new LinearLayoutManager(this);
-        rView.setLayoutManager(mLayoutManager);
-
-        mAdapter = new AlunoAcademiaAdapter(getAlunoDaIntent());
-        rView.setAdapter(mAdapter);
 
     }
 
     private void buscaLista(){
-        ArrayList<AlunoAcademia> alunos = getAlunoDaIntent();
+        ArrayList<AlunoAcademia> alunos = getAlunosDaIntent();
+        AlunoAcademia aluno = getAlunoDaIntent();
 
-        AlunoAcademia aluno = alunos.get(0);
+        //AlunoAcademia aluno = alunos.get(0);
 
         if(aluno != null){
             txtNomeAluno.setText(aluno.getNome());
@@ -78,7 +70,11 @@ public class TelaDadosCadastrados extends AppCompatActivity {
 
     }
 
-    private ArrayList<AlunoAcademia> getAlunoDaIntent(){
+    private AlunoAcademia getAlunoDaIntent(){
+        return (AlunoAcademia) getIntent().getSerializableExtra("aluno");
+    }
+
+    private ArrayList<AlunoAcademia> getAlunosDaIntent(){
         return (ArrayList<AlunoAcademia>) getIntent().getSerializableExtra("alunos");
     }
 }

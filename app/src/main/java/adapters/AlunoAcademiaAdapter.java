@@ -1,5 +1,6 @@
 package adapters;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,7 +19,8 @@ import model.AlunoAcademia;
 
 public class AlunoAcademiaAdapter extends RecyclerView.Adapter {
 
-    ArrayList<AlunoAcademia> alunos;
+    private Context context;
+    private ArrayList<AlunoAcademia> alunos;
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         // each data item is just a string in this case
@@ -29,20 +31,25 @@ public class AlunoAcademiaAdapter extends RecyclerView.Adapter {
         }
     }
 
-    // Provide a suitable constructor (depends on the kind of dataset)
-    public AlunoAcademiaAdapter(ArrayList<AlunoAcademia> alunos) {
+    public AlunoAcademiaAdapter(Context context, ArrayList<AlunoAcademia> alunos) {
+        this.context = context;
         this.alunos = alunos;
     }
 
-
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return null;
+        View alunoRecycle = LayoutInflater.from(context).inflate(R.layout.layout_aluno_recyclerview, null);
+        ViewHolderAlunoAcademia avh = new ViewHolderAlunoAcademia(alunoRecycle);
+        return avh;
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-
+        AlunoAcademia aluno = alunos.get(position);
+        ViewHolderAlunoAcademia avh = (ViewHolderAlunoAcademia)holder;
+        avh.getTxtNomeAluno().setText(aluno.getNome());
+        avh.getTxtModalidades().setText(aluno.getModalidade());
+        avh.getTxtProfessor().setText(aluno.getProfessor());
     }
 
     // Return the size of your dataset (invoked by the layout manager)

@@ -19,7 +19,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".TelaDadosCadastrados" />
-        <activity android:name=".AlunoAcademiaItem"></activity>
+        <activity android:name=".ListagemAluno"></activity>
     </application>
 
 </manifest>

@@ -75,12 +75,12 @@ public class TelaCadastro extends AppCompatActivity {
         }else{
             Toast.makeText(this,"Cadastro não Realizado!",Toast.LENGTH_SHORT).show();
         }
-
         /*
-            Intent it = new Intent(this, TelaDadosCadastrados.class);
-            it.putExtra("aluno", aluno);
-            startActivity(it);
+        Intent it = new Intent(this, TelaDadosCadastrados.class);
+        it.putExtra("aluno", aluno);
+        startActivity(it);
         */
+
     }
 
     public void listar(View v){
@@ -88,9 +88,7 @@ public class TelaCadastro extends AppCompatActivity {
         DAOAcademia dao = new DAOAcademia();
         ArrayList<AlunoAcademia> alunos = dao.getAlunos();
 
-        Intent it = new Intent(this, TelaDadosCadastrados.class);
-        it.putExtra("alunos", alunos);
-        startActivity(it);
+        Intent it = new Intent(this, ListagemAluno.class);
 
     }
 
