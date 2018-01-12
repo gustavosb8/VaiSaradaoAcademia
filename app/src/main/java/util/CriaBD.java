@@ -21,15 +21,15 @@ public class CriaBD extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         comandosql = "CREATE TABLE aluno (" +
-                "idAluno   INTEGER      PRIMARY KEY AUTOINCREMENT NOT NULL," +
+                "idAluno    INTEGER      PRIMARY KEY AUTOINCREMENT NOT NULL," +
                 "nome                    VARCHAR (50)," +
                 "endereco                VARCHAR (50)," +
                 "sexo                     VARCHAR (20)," +
-                "dataNascimento             DATE," +
+                "dataNascimento             VARCHAR(20)," +
                 "cpf           VARCHAR(20)," +
                 "rg          VARCHAR (20)," +
                 "modalidade    VARCHAR (200)," +
-                "dataAdmissao    DATE," +
+                "dataAdmissao    VARCHAR(20)," +
                 "professorResp    VARCHAR (50))";
         db.execSQL(comandosql);
 

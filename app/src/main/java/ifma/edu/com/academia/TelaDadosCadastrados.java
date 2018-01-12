@@ -24,12 +24,6 @@ public class TelaDadosCadastrados extends AppCompatActivity {
     private TextView txtAdmissaoAluno;
     private TextView txtProfessorAluno;
 
-    private RecyclerView rView;
-    private RecyclerView.Adapter mAdapter;
-    private RecyclerView.LayoutManager mLayoutManager;
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,10 +42,8 @@ public class TelaDadosCadastrados extends AppCompatActivity {
     }
 
     private void buscaLista(){
-        ArrayList<AlunoAcademia> alunos = getAlunosDaIntent();
-        AlunoAcademia aluno = getAlunoDaIntent();
 
-        //AlunoAcademia aluno = alunos.get(0);
+        AlunoAcademia aluno = getAlunoDaIntent();
 
         if(aluno != null){
             txtNomeAluno.setText(aluno.getNome());
@@ -72,9 +64,5 @@ public class TelaDadosCadastrados extends AppCompatActivity {
 
     private AlunoAcademia getAlunoDaIntent(){
         return (AlunoAcademia) getIntent().getSerializableExtra("aluno");
-    }
-
-    private ArrayList<AlunoAcademia> getAlunosDaIntent(){
-        return (ArrayList<AlunoAcademia>) getIntent().getSerializableExtra("alunos");
     }
 }

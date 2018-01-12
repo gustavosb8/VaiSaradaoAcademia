@@ -6,9 +6,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import dao.DAOAcademia;
 import ifma.edu.com.academia.R;
 import model.AlunoAcademia;
 
@@ -21,15 +23,7 @@ public class AlunoAcademiaAdapter extends RecyclerView.Adapter {
 
     private Context context;
     private ArrayList<AlunoAcademia> alunos;
-
-    public static class ViewHolder extends RecyclerView.ViewHolder {
-        // each data item is just a string in this case
-        public TextView mTextView;
-        public ViewHolder(TextView v) {
-            super(v);
-            mTextView = v;
-        }
-    }
+    DAOAcademia dao;
 
     public AlunoAcademiaAdapter(Context context, ArrayList<AlunoAcademia> alunos) {
         this.context = context;
@@ -44,12 +38,35 @@ public class AlunoAcademiaAdapter extends RecyclerView.Adapter {
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        AlunoAcademia aluno = alunos.get(position);
+    public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position) {
+        final AlunoAcademia aluno = alunos.get(position);
         ViewHolderAlunoAcademia avh = (ViewHolderAlunoAcademia)holder;
         avh.getTxtNomeAluno().setText(aluno.getNome());
         avh.getTxtModalidades().setText(aluno.getModalidade());
         avh.getTxtProfessor().setText(aluno.getProfessor());
+
+        /*
+        avh.getImageButtonDelete().setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                dao = new DAOAcademia(context);
+                try{
+
+                    if(dao.excluirPorId(aluno.getId())){
+                        this.
+                        Toast.makeText(context, "Registro deletado!", Toast.LENGTH_SHORT).show();
+                    }else{
+                        Toast.makeText(context, "Registro não deletado!", Toast.LENGTH_SHORT).show();
+                    }
+
+
+                }catch(Exception err){
+                    Toast.makeText(context, err.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        });
+        */
     }
 
     // Return the size of your dataset (invoked by the layout manager)

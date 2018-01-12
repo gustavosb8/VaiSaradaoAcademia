@@ -20,9 +20,9 @@ public class ListagemAluno extends AppCompatActivity {
         setContentView(R.layout.activity_listagem_aluno);
 
         recyclerView = (RecyclerView) findViewById(R.id.rcvListagemdeAlunos);
-        LinearLayoutManager linearLayout = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, true);
+        LinearLayoutManager linearLayout = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
 
-        DAOAcademia dao = new DAOAcademia();
+        DAOAcademia dao = new DAOAcademia(this);
         AlunoAcademiaAdapter adapter = new AlunoAcademiaAdapter(this, dao.getAlunos());
         recyclerView.setLayoutManager(linearLayout);
         recyclerView.setAdapter(adapter);

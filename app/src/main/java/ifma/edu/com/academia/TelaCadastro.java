@@ -67,14 +67,18 @@ public class TelaCadastro extends AppCompatActivity {
 
     public void salvar(View v){
         AlunoAcademia aluno = criaAluno();
+        try{
+            DAOAcademia daoAcademia = new DAOAcademia(this);
 
-        DAOAcademia daoAcademia = new DAOAcademia();
-
-        if(daoAcademia.salvar(aluno)){
-            Toast.makeText(this,"Cadastro Realizado!",Toast.LENGTH_SHORT).show();
-        }else{
-            Toast.makeText(this,"Cadastro não Realizado!",Toast.LENGTH_SHORT).show();
+            if(daoAcademia.salvar(aluno)){
+                Toast.makeText(this,"Cadastro Realizado!",Toast.LENGTH_SHORT).show();
+            }else{
+                Toast.makeText(this,"Cadastro não Realizado!",Toast.LENGTH_SHORT).show();
+            }
+        }catch (Exception err){
+            Toast.makeText(this,err.getMessage(),Toast.LENGTH_SHORT).show();
         }
+
         /*
         Intent it = new Intent(this, TelaDadosCadastrados.class);
         it.putExtra("aluno", aluno);
@@ -83,12 +87,14 @@ public class TelaCadastro extends AppCompatActivity {
 
     }
 
-    public void listar(View v){
+    public void listar(View v) {
 
-        DAOAcademia dao = new DAOAcademia();
-        ArrayList<AlunoAcademia> alunos = dao.getAlunos();
-
-        Intent it = new Intent(this, ListagemAluno.class);
+        try{
+            Intent it = new Intent(this, ListagemAluno.class);
+            startActivity(it);
+        }catch (Exception err){
+            Toast.makeText(this,err.getMessage(),Toast.LENGTH_SHORT).show();
+        }
 
     }
 

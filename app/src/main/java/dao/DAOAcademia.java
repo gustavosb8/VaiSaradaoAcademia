@@ -1,6 +1,7 @@
 package dao;
 
 import android.content.ContentValues;
+import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.widget.Toast;
@@ -19,6 +20,10 @@ public class DAOAcademia {
     private DBGateway gw;
     private ArrayList<AlunoAcademia> alunos = new ArrayList<>();
     private Cursor cursor;
+
+    public DAOAcademia(Context context){
+        this.gw = DBGateway.getInstance(context);
+    }
 
     public boolean salvar(AlunoAcademia aluno){
         long resultado;
@@ -47,25 +52,41 @@ public class DAOAcademia {
         }
     }
 
+    public boolean excluirPorId(int ID){
+        final String key = "idAluno";
+        long resultado;
+        try{
+            resultado =         gw.getDatabase().delete("aluno", key +" = "+ID,null);
+            if(resultado > 0){
+                return true;
+            }else{
+                return false;
+            }
+        }catch (Exception err){
+            return false;
+        }
+    }
+
     public ArrayList<AlunoAcademia> getAlunos() {
         alunos = new ArrayList<>();
-        String colunas [] = {"nome", "endereco", "sexo", "dataNascimento", "cpf", "rg","modalidade", "dataAdmissao","professorResp"};
-        cursor = gw.getDatabase().query(false,"aluno",colunas,null,null,null,null,null,null);
+        String colunas [] = {"idAluno", "nome", "endereco", "sexo", "dataNascimento", "cpf", "rg","modalidade", "dataAdmissao","professorResp"};
+        cursor = gw.getDatabase().query("aluno",colunas,null,null,null,null,null,null);
 
         if(cursor.getCount() > 0) {
 
             while (cursor.moveToNext()) {
 
                 AlunoAcademia aluno = new AlunoAcademia();
-                aluno.setNome(cursor.getString(0));
-                aluno.setEndereco(cursor.getString(1));
-                aluno.setSexo(cursor.getString(2));
-                aluno.setDataNascimento(cursor.getString(3));
-                aluno.setCpf(cursor.getString(4));
-                aluno.setRg(cursor.getString(5));
-                aluno.setModalidade(cursor.getString(6));
-                aluno.setDataAdmissao(cursor.getString(7));
-                aluno.setProfessor(cursor.getString(8));
+                aluno.setId(cursor.getInt(0));
+                aluno.setNome(cursor.getString(1));
+                aluno.setEndereco(cursor.getString(2));
+                aluno.setSexo(cursor.getString(3));
+                aluno.setDataNascimento(cursor.getString(4));
+                aluno.setCpf(cursor.getString(5));
+                aluno.setRg(cursor.getString(6));
+                aluno.setModalidade(cursor.getString(7));
+                aluno.setDataAdmissao(cursor.getString(8));
+                aluno.setProfessor(cursor.getString(9));
 
                 alunos.add(aluno);
 
@@ -77,5 +98,12 @@ public class DAOAcademia {
         else{
             return alunos;
         }
+    }
+
+    public int contAlunos(){
+        alunos = new ArrayList<>();
+        String colunas [] = {"nome"};
+        cursor = gw.getDatabase().query("aluno",colunas,null,null,null,null,null,null);
+        return cursor.getCount();
     }
 }
