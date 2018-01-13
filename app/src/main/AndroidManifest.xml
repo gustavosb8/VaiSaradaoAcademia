@@ -20,7 +20,7 @@
         </activity>
         <activity android:name=".TelaDadosCadastrados" />
         <activity android:name=".ListagemAluno" />
-        <activity android:name=".TelaEditar"></activity>
+        <activity android:name=".TelaEditar" />
     </application>
 
 </manifest>

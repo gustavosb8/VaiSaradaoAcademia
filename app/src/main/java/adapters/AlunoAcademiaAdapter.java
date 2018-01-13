@@ -16,6 +16,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import dao.DAOAcademia;
@@ -30,7 +31,7 @@ import util.AlunoAcademiaDiffCallBack;
  * AULA 2
  */
 
-public class AlunoAcademiaAdapter extends RecyclerView.Adapter {
+public class AlunoAcademiaAdapter extends RecyclerView.Adapter{
 
     private Context context;
     private ArrayList<AlunoAcademia> alunos;
@@ -65,14 +66,14 @@ public class AlunoAcademiaAdapter extends RecyclerView.Adapter {
                 dao = new DAOAcademia(context);
                 try{
 
+                    AlunoAcademiaAdapter adapter = new AlunoAcademiaAdapter(context, dao.getAlunos());
 
-                    //Tentativa de chamar activity
                     Intent it = new Intent(context, TelaEditar.class);
                     it.putExtra("aluno", aluno);
+
                     context.startActivity(it);
-
-
                     updateAlunoAcademiaItens(dao.getAlunos());
+
 
                 }catch(Exception err){
                     Toast.makeText(context, err.getMessage(), Toast.LENGTH_SHORT).show();
