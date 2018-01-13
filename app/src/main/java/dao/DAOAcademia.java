@@ -52,6 +52,35 @@ public class DAOAcademia {
         }
     }
 
+    public boolean editarPorId(int ID, AlunoAcademia aluno){
+        final String key = "idAluno";
+        long resultado;
+
+        ContentValues parametros = new ContentValues();
+
+        parametros.put("idAluno", ID);
+        parametros.put("nome", aluno.getNome());
+        parametros.put("endereco", aluno.getEndereco());
+        parametros.put("sexo", aluno.getSexo());
+        parametros.put("dataNascimento", aluno.getDataNascimento());
+        parametros.put("cpf", aluno.getCpf());
+        parametros.put("rg", aluno.getRg());
+        parametros.put("modalidade", aluno.getModalidade());
+        parametros.put("dataAdmissao", aluno.getDataAdmissao());
+        parametros.put("professorResp", aluno.getProfessor());
+
+        try{
+            resultado =         gw.getDatabase().update ("aluno", parametros,key +" = "+ID,null);
+            if(resultado > 0){
+                return true;
+            }else{
+                return false;
+            }
+        }catch (Exception err){
+            return false;
+        }
+    }
+
     public boolean excluirPorId(int ID){
         final String key = "idAluno";
         long resultado;

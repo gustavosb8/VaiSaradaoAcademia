@@ -1,10 +1,18 @@
 package adapters;
 
+import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.os.Bundle;
+import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.RecyclerView;
+import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -12,7 +20,10 @@ import java.util.ArrayList;
 
 import dao.DAOAcademia;
 import ifma.edu.com.academia.R;
+import ifma.edu.com.academia.TelaDadosCadastrados;
+import ifma.edu.com.academia.TelaEditar;
 import model.AlunoAcademia;
+import util.AlunoAcademiaDiffCallBack;
 
 /**
  * Created by Gustavo Bastos on 07/12/2017.
@@ -45,28 +56,29 @@ public class AlunoAcademiaAdapter extends RecyclerView.Adapter {
         avh.getTxtModalidades().setText(aluno.getModalidade());
         avh.getTxtProfessor().setText(aluno.getProfessor());
 
-        /*
-        avh.getImageButtonDelete().setOnClickListener(new View.OnClickListener(){
+
+
+
+        avh.getImageButtonEdit().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 dao = new DAOAcademia(context);
                 try{
 
-                    if(dao.excluirPorId(aluno.getId())){
-                        this.
-                        Toast.makeText(context, "Registro deletado!", Toast.LENGTH_SHORT).show();
-                    }else{
-                        Toast.makeText(context, "Registro não deletado!", Toast.LENGTH_SHORT).show();
-                    }
 
+                    //Tentativa de chamar activity
+                    Intent it = new Intent(context, TelaEditar.class);
+                    it.putExtra("aluno", aluno);
+                    context.startActivity(it);
+
+
+                    updateAlunoAcademiaItens(dao.getAlunos());
 
                 }catch(Exception err){
                     Toast.makeText(context, err.getMessage(), Toast.LENGTH_SHORT).show();
                 }
-
             }
         });
-        */
     }
 
     // Return the size of your dataset (invoked by the layout manager)
@@ -75,4 +87,12 @@ public class AlunoAcademiaAdapter extends RecyclerView.Adapter {
         return alunos.size();
     }
 
+    public void updateAlunoAcademiaItens(ArrayList<AlunoAcademia> novosAlunos){
+        final AlunoAcademiaDiffCallBack diffCallback = new AlunoAcademiaDiffCallBack(this.alunos, novosAlunos);
+        final DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(diffCallback);
+
+        this.alunos.clear();
+        this.alunos.addAll(novosAlunos);
+        diffResult.dispatchUpdatesTo(this);
+    }
 }

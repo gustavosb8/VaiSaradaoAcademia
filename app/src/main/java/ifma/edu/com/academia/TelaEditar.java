@@ -1,29 +1,20 @@
 package ifma.edu.com.academia;
 
-import android.content.ContentValues;
-import android.content.Intent;
-import android.database.Cursor;
-import android.database.SQLException;
-import android.database.sqlite.SQLiteDatabase;
+import android.app.Activity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import java.util.ArrayList;
-
 import dao.DAOAcademia;
 import model.AlunoAcademia;
-import util.CriaBD;
 
-public class TelaCadastro extends AppCompatActivity {
+public class TelaEditar extends AppCompatActivity  {
 
     private EditText edtxtAluno;
     private EditText edtxtEnderecoAluno;
@@ -37,14 +28,17 @@ public class TelaCadastro extends AppCompatActivity {
     private CheckBox cboxPilates;
     private EditText edtxtDataAdmissao;
     private Spinner spnProfessorAluno;
-    private Button btnListar;
-    private Button btnSalvar;
+    private Button btnEditar;
+
+
+    AlunoAcademia aluno = (AlunoAcademia) getIntent().getExtras().getSerializable("aluno");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_tela_cadastro);
+        setContentView(R.layout.activity_tela_editar);
 
+        try{
         edtxtAluno = (EditText) findViewById(R.id.edtxtAluno);
         edtxtEnderecoAluno = (EditText) findViewById(R.id.edtxtEnderecoAluno);
         rdgSexo = (RadioGroup) findViewById(R.id.rdgSexo);
@@ -58,45 +52,38 @@ public class TelaCadastro extends AppCompatActivity {
         edtxtDataAdmissao = (EditText) findViewById(R.id.edtxtDataAdmissao);
         spnProfessorAluno = (Spinner) findViewById(R.id.spnProfessorAluno);
 
-        btnListar = (Button) findViewById(R.id.btnListar);
-        btnSalvar = (Button) findViewById(R.id.btnSalvar);
+        btnEditar = (Button) findViewById(R.id.btnEditar);
 
         ArrayAdapter<String> adapterprofessor = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,getResources().getStringArray(R.array.professores));
         spnProfessorAluno.setAdapter(adapterprofessor);
+
+
+            criaFormulario(aluno);
+        }catch (Exception er){
+            Toast.makeText(this,"Erro aqui",Toast.LENGTH_SHORT).show();
+        }
+
+
     }
 
-    public void salvar(View v){
-        AlunoAcademia aluno = criaAluno();
+    public void editar(){
+        AlunoAcademia alunoNovo = criaAluno();
         try{
             DAOAcademia daoAcademia = new DAOAcademia(this);
 
-            if(daoAcademia.salvar(aluno)){
-                Toast.makeText(this,"Cadastro Realizado!",Toast.LENGTH_SHORT).show();
+            if(daoAcademia.editarPorId(aluno.getId(), alunoNovo)){
+                Toast.makeText(this,"Edição Realizado!",Toast.LENGTH_SHORT).show();
+                setResult(1);
+                finish();
             }else{
-                Toast.makeText(this,"Cadastro não Realizado!",Toast.LENGTH_SHORT).show();
+
+                Toast.makeText(this,"Edição não Realizado!",Toast.LENGTH_SHORT).show();
+                setResult(-1);
+                finish();
             }
         }catch (Exception err){
             Toast.makeText(this,err.getMessage(),Toast.LENGTH_SHORT).show();
         }
-
-        /*
-        Intent it = new Intent(this, TelaDadosCadastrados.class);
-        it.putExtra("aluno", aluno);
-        startActivity(it);
-        */
-
-    }
-
-    public void listar(View v) {
-
-        try{
-
-            Intent it = new Intent(this, ListagemAluno.class);
-            startActivity(it);
-        }catch (Exception err){
-            Toast.makeText(this,err.getMessage(),Toast.LENGTH_SHORT).show();
-        }
-
     }
 
     private AlunoAcademia criaAluno(){
@@ -112,6 +99,20 @@ public class TelaCadastro extends AppCompatActivity {
         aluno.setProfessor(this.spnProfessorAluno.getSelectedItem().toString());
 
         return aluno;
+    }
+
+    private void criaFormulario(AlunoAcademia alunoAntigo){
+        this.edtxtAluno.setText(alunoAntigo.getNome().toString());
+        this.edtxtEnderecoAluno.setText(alunoAntigo.getEndereco().toString());
+        this.edtxtCPFAluno.setText(alunoAntigo.getCpf());
+        this.edtxtRGAluno.setText(alunoAntigo.getRg().toString());
+        this.edtxtDataAdmissao.setText(alunoAntigo.getDataAdmissao().toString());
+        this.edtxtNascimento.setText(alunoAntigo.getDataNascimento().toString());
+        if(alunoAntigo.getSexo().equals("Masculino")){
+            this.rdgSexo.check(R.id.rdbtMasculino);
+        }else{
+            this.rdgSexo.check(R.id.rdbtbFeminino);
+        }
     }
 
     //metodo temporário para simular ManyToMany
@@ -152,4 +153,8 @@ public class TelaCadastro extends AppCompatActivity {
         }
         return sexo;
     }
+
+
 }
+
+
