@@ -57,6 +57,22 @@ public class AlunoAcademiaAdapter extends RecyclerView.Adapter{
         avh.getTxtModalidades().setText(aluno.getModalidade());
         avh.getTxtProfessor().setText(aluno.getProfessor());
 
+        avh.getImageButtonDelete().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dao = new DAOAcademia(context);
+                try{
+
+                    dao.excluirPorId(aluno.getId());
+                    updateAlunoAcademiaItens(dao.getAlunos());
+
+
+                }catch(Exception err){
+                    Toast.makeText(context, err.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
 
 
 
