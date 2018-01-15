@@ -58,14 +58,4 @@ public class ListagemAluno extends AppCompatActivity {
         }
 
     }
-    /*
-    public void updateAlunoAcademiaItens(ArrayList<AlunoAcademia> novosAlunos){
-        final AlunoAcademiaDiffCallBack diffCallback = new AlunoAcademiaDiffCallBack(this.alunos, novosAlunos);
-        final DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(diffCallback);
-
-        this.alunos.clear();
-        this.alunos.addAll(novosAlunos);
-        diffResult.dispatchUpdatesTo(this);
-    }
-    */
 }
