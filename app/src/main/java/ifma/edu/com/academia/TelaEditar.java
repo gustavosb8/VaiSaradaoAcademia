@@ -14,6 +14,8 @@ import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.ArrayList;
 
 import adapters.AlunoAcademiaAdapter;
@@ -80,9 +82,11 @@ public class TelaEditar extends AppCompatActivity {
             if (dao.editarPorId(aluno.getId(), criaAluno())) {
                 Toast.makeText(this, "Editado com sucesso", Toast.LENGTH_SHORT).show();
 
-
+                /*
                 Intent it = new Intent(this, ListagemAluno.class);
                 startActivity(it);
+                */
+                EventBus.getDefault().post(dao.getAlunos());
                 finish();
 
             }
